@@ -1,25 +1,27 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
 ]{agujournal2019}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -37,9 +39,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -65,8 +64,7 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -91,6 +89,8 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+
+
 % definitions for citeproc citations
 \NewDocumentCommand\citeproctext{}{}
 \NewDocumentCommand\citeproc{mm}{%
@@ -124,6 +124,18 @@
 \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
 
 \usepackage{url} %this package should fix any errors with URLs in refs.
 \usepackage{lineno}
@@ -171,15 +183,15 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={La Palma Earthquake Mechanisms},
-  pdfauthor={Travis Zalesky; Rowan Cockett},
-  pdfkeywords={La Palma, Earthquakes},
+  pdfauthor={Travis Zalesky},
+  pdfkeywords={ephemeral (transient)
+water, flood, LandSat, MODIS, playa, remote sensing, satellite
+data, sheet flow, synthetic aperture radar (SAR)},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -188,165 +200,136 @@
   pdfcreator={LaTeX via pandoc}}
 
 
-\journalname{Earth and Space Science}
 
 \draftfalse
 
 \begin{document}
 \title{La Palma Earthquake Mechanisms}
 
-\authors{Travis Zalesky\affil{1}, Rowan Cockett\affil{1}}
-\affiliation{1}{Curvenote, }
+\authors{Travis Zalesky\affil{1}}
+\affiliation{1}{University of Arizona, }
 \correspondingauthor{Travis Zalesky}{travisz@arizona.edu}
 
 
 \begin{abstract}
-In September 2021, a significant jump in seismic activity on the island
-of La Palma (Canary Islands, Spain) signaled the start of a volcanic
-crisis that still continues at the time of writing. Earthquake data is
-continually collected and published by the Instituto Geográphico
-Nacional (IGN). \ldots{}
+A variety of remote sensing methods are investigated for their ability
+to detect ephemeral water bodies across the state of Arizona. The
+strengths and weaknesses of each are discussed.
 \end{abstract}
 
 \section*{Plain Language Summary}
-Earthquake data for the island of La Palma from the September 2021
-eruption is found \ldots{}
+Results and methods for detecting transient water bodies using satellite
+data.
 
 
 
 
 \section{Introduction}\label{introduction}
 
-\textsubscript{Source:
-\href{https://travisz09.github.io/Quarto_Template/index.qmd.html}{Article
-Notebook}}
+As part of the Arizona Tri-University Recharge (ATUR) project, multiple
+methods for identifying and quantifying ephemeral water bodies across
+the state of Arizona (AZ) are investigated. For reasons that will be
+discussed, accurate identification of ephemeral, or temporary, water
+bodies is a challenge, and efforts to-date have shown limited success.
+Methods, results, and challenges are discussed, and potential paths
+forward are explored.
 
-\begin{figure}[H]
+Ephemeral water bodies are common features in the arid American
+southwest. Typically very shallow, these water bodies range in size from
+a few cm rock pools to flash flood associated sheet flow, and playas up
+to several km in diameter (Crawford, 1981; Whitford \& Duval, 2020).
+While playas and intermittent streams are well mapped across AZ, there
+is no consensus on the volume of water which flows through these
+systems. More to the point, there is no widely accepted estimate of the
+volume of water which either evaporates or recharges from these
+internally draining basins.
 
-\centering{
+It is not clear what fraction of water which flows onto a playa is
+evaporated vs.~recharged. On the one hand, the nature of playas results
+in the slow accumulation of surface salts and fine sediments (clays and
+silts), which are generally impervious and detrimental to infiltration
+and subsequent recharge (Whitford \& Duval, 2020). Additionally, playas
+may be an oasis for drought resistant flora, increasing local
+evapotranspiration, even after shallow surface soil layers have dried
+out (Crawford, 1981). Alternately, these mineral rich surface crusts may
+be prone to expansion when wetted, and are frequently characterized by
+deep cracks which provide avenues for water infiltration below the
+impervious layers (Whitford \& Duval, 2020). While the majority of water
+flowing onto most playas will be lost to evaporation, there may be
+specific playas where water loss by infiltration may exceed evaporation
+(Whitford \& Duval, 2020). At least initially, we will assume that all
+water flowing onto playas shall be evaporated, subject to later
+reevaluation and refinement.
 
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-pdf/fig-timeline-output-1.pdf}}
+The primary target of this study is to estimate and quantify the volume
+of water flowing into small to medium sized playas, on the order of
+\textasciitilde50 m to \textasciitilde1 km in diameter, although
+identification of sheet flow may also be incidental. The general method
+outlined is to use remote sensing technology to identify standing water
+broadly across the study area, across a time series. By identifying
+standing water, and assuming a constant water depth, water volume can be
+estimated. Additionally, an approximation of ``continuously wetted''
+days can provide an initial estimate of evaporation rates, and through
+comparison with alternate evapotranspiration estimates, may be useful
+for estimating infiltration rate (e.g.~if water loss rate is 2
+cm\^{}3/day and the evapotranspiration rate is 1.5 cm\^{}3/day then the
+implied infiltration rate would be 0.5 cm\^{}3/day).
 
-}
-
-\caption{\label{fig-timeline}Timeline of recent earthquakes on La Palma}
-
-\end{figure}%
-
-\textsubscript{Source:
-\href{https://travisz09.github.io/Quarto_Template/index.qmd.html}{Article
-Notebook}}
-
-\textsubscript{Source:
-\href{https://travisz09.github.io/Quarto_Template/index.qmd.html}{Article
-Notebook}}
-
-Based on data up to and including 1971, eruptions on La Palma happen
-every 79.8 years on average.
-
-Studies of the magma systems feeding the volcano, such as Marrero et al.
-(2019), have proposed that there are two main magma reservoirs feeding
-the Cumbre Vieja volcano; one in the mantle (30-40km depth) which
-charges and in turn feeds a shallower crustal reservoir (10-20km depth).
-
-Eight eruptions have been recorded since the late 1400s
-(Figure~\ref{fig-timeline}).
-
-Data and methods are discussed in Section~\ref{sec-data-methods}.
-
-Let \(x\) denote the number of eruptions in a year. Then, \(x\) can be
-modeled by a Poisson distribution
-
-\begin{equation}\phantomsection\label{eq-poisson}{
-p(x) = \frac{e^{-\lambda} \lambda^{x}}{x !}
-}\end{equation}
-
-where \(\lambda\) is the rate of eruptions per year. Using
-Equation~\ref{eq-poisson}, the probability of an eruption in the next
-\(t\) years can be calculated.
-
-\begin{longtable}[]{@{}ll@{}}
-\caption{Recent historic eruptions on La
-Palma}\label{tbl-history}\tabularnewline
-\toprule\noalign{}
-Name & Year \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Name & Year \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Current & 2021 \\
-Teneguía & 1971 \\
-Nambroque & 1949 \\
-El Charco & 1712 \\
-Volcán San Antonio & 1677 \\
-Volcán San Martin & 1646 \\
-Tajuya near El Paso & 1585 \\
-Montaña Quemada & 1492 \\
-\end{longtable}
-
-Table~\ref{tbl-history} summarises the eruptions recorded since the
-colonization of the islands by Europeans in the late 1400s.
+The study area used for method development is primarily Hualapai Playa
+(a.k.a. Red Lake), located in northwest AZ, approx. 60 km
+south-southwest of Lake Mead (Figure~\ref{fig-PlayaRef}). This ephemeral
+playa is roughly 1 km in diameter, and is one of the largest playas in
+AZ. Furthermore, local landowners surrounding Hualapai Playa have
+expressed sincere interest in our project, creating additional
+public-relations incentives related to this particular playa. Lastly,
+it's proximity to Lake Mead and Lake Mohave provide a convenient region
+for testing these methods against known areas of permanent surface
+water.
 
 \begin{figure}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/la-palma-map.png}}
+\pandocbounded{\includegraphics[keepaspectratio]{images/Hualapai_Playa_Reference.png}}
 
 }
 
-\caption{\label{fig-map}Map of La Palma}
+\caption{\label{fig-PlayaRef}Hualapai Playa locator map.}
 
 \end{figure}%
 
-La Palma is one of the west most islands in the Volcanic Archipelago of
-the Canary Islands (Figure~\ref{fig-map}).
+One of the most challenging aspects of developing these methods is the
+lack of quality ground-truth data. Without existing data regarding date
+and duration of standing water within these ephemeral features, it is
+extremely difficult to validate our methods. While reasonable
+assumptions can be made about method accuracy (or inaccuracy as the case
+may be), any method, either those presented herein, or future methods
+not yet considered, will have to be validated using a known and well
+characterized ephemeral water body, ideally within AZ, or elsewhere in a
+similar arid environment.
 
-\begin{figure}[H]
+\section{Methods \& Results}\label{methods-results}
 
-\centering{
-
-\pandocbounded{\includegraphics[keepaspectratio]{index_files/figure-latex/notebooks-data-screening-fig-spatial-plot-output-1.png}}
-
-}
-
-\caption{\label{fig-spatial-plot}Locations of earthquakes on La Palma
-since 2017.}
-
-\end{figure}%
-
-\textsubscript{Source:
-\href{https://travisz09.github.io/Quarto_Template/index.qmd.html}{Article
-Notebook}}
-
-Figure~\ref{fig-spatial-plot} shows the location of recent Earthquakes
-on La Palma.
-
-\section{Data \& Methods}\label{sec-data-methods}
+\section{Further Recommendations}\label{further-recommendations}
 
 \section{Conclusion}\label{conclusion}
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
-\vspace{1em}
-
-\textsubscript{Source:
-\href{https://travisz09.github.io/Quarto_Template/index.qmd.html}{Article
-Notebook}}
-
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-marrero2019}
-Marrero, J., García, A., Berrocoso, M., Llinares, Á., Rodríguez-Losada,
-A., \& Ortiz, R. (2019). Strategies for the development of volcanic
-hazard maps in monogenetic volcanic fields: The example of {La} {Palma}
-({Canary} {Islands}). \emph{Journal of Applied Volcanology}, \emph{8}.
-\url{https://doi.org/10.1186/s13617-019-0085-5}
+\vspace{1em}
+
+\bibitem[\citeproctext]{ref-Clifford_Crawford}
+Crawford, C. S. (1981). Chapter 17 - the invertebrate community of
+ephemeral waters. In \emph{Biology of desert invertebrates} (pp.
+234--247). Springer-Verlag.
+
+\bibitem[\citeproctext]{ref-Whitford_Duval_2020}
+Whitford, W. G., \& Duval, B. D. (2020). \emph{Chapter 8 - consumers and
+their effects} (W. G. Whitford \& B. D. Duval, Eds.; pp. 203--263).
+Academic Press. \url{https://doi.org/10.1016/B978-0-12-815055-9.00008-4}
 
 \end{CSLReferences}
 
