@@ -1,5 +1,5 @@
 ---
-title: La Palma Earthquake Mechanisms
+title: Remote Sensing Methods for Identifying Ephemeral Water Bodies Across Arizona
 author:
   - name: Travis Zalesky
     orcid: 0009-0006-0181-3099
