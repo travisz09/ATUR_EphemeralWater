@@ -91,15 +91,15 @@ The strengths and weaknesses of each are discussed.</p>
   <title>1 Introduction</title>
   <p>As part of the Arizona Tri-University Recharge (ATUR) project,
   multiple methods for identifying and quantifying ephemeral water
-  bodies across the state of Arizona (AZ) are investigated. For reasons
-  that will be discussed, accurate identification of ephemeral, or
-  temporary, water bodies is a challenge, and efforts to-date have shown
-  limited success. Methods, results, and challenges are discussed, and
-  potential paths forward are explored.</p>
+  bodies across the state of Arizona (AZ) have been investigated. For
+  reasons that will be discussed, accurate identification of ephemeral,
+  or temporary, water bodies is a challenge, and efforts to-date have
+  shown limited success. Methods, results, and challenges are discussed,
+  and potential paths forward shall be explored.</p>
   <p>Ephemeral water bodies are common features in the arid American
   southwest. Typically very shallow, these water bodies range in size
-  from a few cm rock pools to flash flood associated sheet flow, and
-  playas up to several km in diameter
+  from a few cm rock pools to sheet flow associated with flash floods,
+  and playas up to several km in diameter
   (<xref alt="Crawford, 1981" rid="ref-Clifford_Crawford" ref-type="bibr">Crawford,
   1981</xref>;
   <xref alt="Whitford &amp; Duval, 2020" rid="ref-Whitford_Duval_2020" ref-type="bibr">Whitford
@@ -140,20 +140,20 @@ The strengths and weaknesses of each are discussed.</p>
   Additionally, an approximation of “continuously wetted” days can
   provide an initial estimate of evaporation rates, and through
   comparison with alternate evapotranspiration estimates, may be useful
-  for estimating infiltration rate (e.g. if water loss rate is 2
-  cm^3/day and the evapotranspiration rate is 1.5 cm^3/day then the
-  implied infiltration rate would be 0.5 cm^3/day).</p>
+  for estimating infiltration rate (e.g. if water loss rate is 2 cm/day
+  and the evapotranspiration rate is 1.5 cm/day then the implied
+  infiltration rate would be 0.5 cm/day).</p>
   <p>The study area used for method development is primarily Hualapai
   Playa (a.k.a. Red Lake), located in northwest AZ, approx. 60 km
   south-southwest of Lake Mead
   (<xref alt="Figure 1" rid="fig-PlayaRef">Figure 1</xref>). This
-  ephemeral playa is roughly 1 km in diameter, and is one of the largest
+  ephemeral playa is roughly 8 km in diameter, and is one of the largest
   playas in AZ. Furthermore, local landowners surrounding Hualapai Playa
   have expressed sincere interest in our project, creating additional
   public-relations incentives related to this particular playa. Lastly,
   it’s proximity to Lake Mead and Lake Mohave provide a convenient
   region for testing these methods against known areas of permanent
-  surface water.</p>
+  surface water. Additional playas are investigated as needed.</p>
   <fig id="fig-PlayaRef">
     <caption><p>Figure 1: Hualapai Playa locator map.</p></caption>
     <graphic mimetype="image" mime-subtype="png" xlink:href="images/Hualapai_Playa_Reference.png" />
@@ -170,6 +170,142 @@ The strengths and weaknesses of each are discussed.</p>
 </sec>
 <sec id="methods-results">
   <title>2 Methods &amp; Results</title>
+  <sec id="method-1-otsu-thresholding-with-synthetic-aperture-radar">
+    <title>2.1 Method 1: Otsu Thresholding with Synthetic Aperture
+    Radar</title>
+    <p>Otsu thresholding is an unsupervised machine vision technique
+    which seeks an optimal threshold for segmenting an image into a
+    binary classification based on a simple histogram classification
+    (<xref alt="Otsu et al., 1975" rid="ref-otsu1975threshold" ref-type="bibr">Otsu
+    et al., 1975</xref>). The method was initially developed in the late
+    ’70s, and is widely applicable to a range of computer vision
+    classification problems. It assumes a bi-modal histogram
+    distribution and determines an optimal thresholding value through
+    the integration of the histogram, rather than simply relying on
+    local properties “such as valley[s]”
+    (<xref alt="Otsu et al., 1975" rid="ref-otsu1975threshold" ref-type="bibr">Otsu
+    et al., 1975</xref>). In recent years, Otsu thresholding has been
+    combined with Synthetic Aperture Radar (SAR) satellite imagery to
+    map surface water, such as flood monitoring in the Mekong Delta
+    (<xref alt="Tran et al., 2022" rid="ref-Tran_Menenti_Jia_2022" ref-type="bibr">Tran
+    et al., 2022</xref>). The properties of surface water and SAR make
+    an ideal pairing for use in Otsu thresholding. The smooth surface
+    characteristics of surface water create low SAR back-scatter,
+    appearing as very dark pixels (Figures
+    <xref alt="2" rid="fig-scatter">2</xref>-<xref alt="3" rid="fig-LakeMead_S1">3</xref>).
+    Compared to the surrounding land surface, water typically has a very
+    high contrast in SAR imagery, which can be leveraged for Otsu
+    thresholding. Additionally, the cloud penetrating characteristics of
+    SAR offer unparalleled all-weather monitoring capabilities.</p>
+    <fig id="fig-scatter">
+      <caption><p>Figure 2: Synthetic Aperture Radar signal return
+      strength (i.e. back-scatter) is a function the roughness of the
+      ground surface. Credit: Meyer
+      (<xref alt="2019" rid="ref-Franz_Meyer_2019" ref-type="bibr">2019</xref>),
+      Figure 2.8. For educational purposes only.</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="images/wavelength_vs_roughness.png" />
+    </fig>
+    <fig id="fig-LakeMead_S1">
+      <caption><p>Figure 3: High resolution Synthetic Aperture Radar
+      (SAR) imagery of Lake Mead, obtained from the European Space
+      Agency (ESA) Sentinel-1 satellite (1-1-2020). Surface water
+      appears dark, and contrasts strongly with the surrounding land
+      surface, resulting in a bimodal histogram distribution, ideal for
+      use in Otsu thresholding.</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="images/LakeMead_S1.png" />
+    </fig>
+    <p>This method initially seemed like an ideal solution. High
+    resolution SAR imagery is freely available from the European Space
+    Agency (ESA) Sentinel-1 satellite, with a global coverage from late
+    2014 to present, and a 6-day revisit time. Google Earth Engine (GEE)
+    code for Otsu thresholding was easily adapted from Markert et al.
+    (<xref alt="2023" rid="ref-GEE_A2.3" ref-type="bibr">2023</xref>),
+    and preliminary results appeared to be promising. Initial analysis
+    appeared to show surface water ponding on Huyalapai Playa in mid-Jan
+    2020. These preliminary results were circulated internally, and
+    purported to be both evidence of surface water, and proof-of-concept
+    for method validation. However, further research and wider
+    application of this method revealed two critical flaws.</p>
+    <p>Firstly, the method, as applied in GEE, was highly sensitive to
+    the size and characteristics of any given playa. For larger playas,
+    the method was generally suitable, but required a substantial amount
+    of manual parameter optimization to function properly. For small to
+    medium sized playas, the method was largely unstable, resulting in
+    persistent errors. As a result this method is not particularly
+    scalable, and at best could be used for a selection of the states
+    largest playas, such as Huyalapai and Willcox Dry Lake (southeast
+    AZ).</p>
+    <p>More critically, this method is sub-optimal for arid regions, as
+    flat sandy surfaces also result in low SAR back-scatter, appearing
+    similar or indistinguishable from surface water. The hard-pan
+    surface of a dry playa is particularly apt to be misidentified by
+    this method, resulting in a high likelihood of false positives. It
+    is currently unclear if the preliminary results purporting to have
+    identified surface water on Huyalapai Playa in Jan. 2020 are true or
+    false positives, as there is no associated ground-truthing data
+    against which to compare. Regardless of the truthiness of these
+    results it is evident that this method can not be used reliably
+    within the study area without widespread and comprehensive testing
+    and validation of results. Given the scheduling and budgetary
+    constraints of this project widespread survey data collection is not
+    feasible, and while further development of this method may be
+    warranted (generally), it is not appropriate for our purposes.
+    Therefore alternate methods must be explored.</p>
+  </sec>
+  <sec id="method-2-normalized-difference-water-index-with-landsat-multispectral-imagery">
+    <title>2.2 Method 2: Normalized Difference Water Index with Landsat
+    Multispectral Imagery</title>
+    <p>Collectively, the 9 Landsat satellites provide the longest
+    continuous record of space-based earth observations, from 1973 to
+    present. Therefore, it may seem like an obvious candidate for
+    monitoring infrequent phenomena, such as surface water ponding on
+    playas, which may only happen once every several years (depending on
+    the playa). However, Landsat imagery has several disadvantages
+    compared to SAR. Firstly, the 30 m resolution of Landsat imagery is
+    nine times coarser than the 10 m resolution of Sentinel-1 SAR.
+    Second, the revisit time for Landsat satellites is 16-days, more
+    than double that of Sentinel-1. By combining data from multiple
+    Landsat satellites this effective revisit time may be cut to 8-days,
+    but this may not be possible throughout the full time series of
+    interest. Additionally, the visible and infrared spectral bands used
+    by Landsat sensors is not capable of penetrating clouds, and while
+    cloud-masking can be achieved through post-processing, the presence
+    of clouds has the potential to obfuscate the phenomena of interest.
+    Combined, these three disadvantages compound, resulting in much
+    sparser data availability for Landsat imagery in comparison to
+    Sentinel-1.</p>
+    <p>Furthermore, while indices for surface water monitoring utilizing
+    Landsat spectral bands, such as the Normalized Difference Water
+    Index (NDWI), are widely used, they are imprecise classifiers on
+    their own. NDWI in particular, is suspectable to misclassifying
+    shadows as water. NDWI is defined as the difference between the
+    green and near-infrared (NIR) bands divided by the sum of the green
+    and NIR bands (for Landsat 8/9, bands 3 and 5 respectively;
+    <xref alt="Equation 1" rid="eq-NDWI">Equation 1</xref>).</p>
+    <p><styled-content id="eq-NDWI"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+    NDWI = \frac{Green - NIR}{Green + NIR}
+     \qquad(1)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>N</mml:mi><mml:mi>D</mml:mi><mml:mi>W</mml:mi><mml:mi>I</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>G</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>−</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow><mml:mrow><mml:mi>G</mml:mi><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>e</mml:mi><mml:mi>n</mml:mi><mml:mo>+</mml:mo><mml:mi>N</mml:mi><mml:mi>I</mml:mi><mml:mi>R</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p>Despite these disadvantages, it may still be possible to
+    characterize and quantify ephemeral water bodies using this
+    dataset.</p>
+    <p>Fortunately, Landsat data is freely available, easily accessible
+    through GEE, and Landsat Collection 2 datasets have added
+    post-processing data which is directly applicable to this method,
+    including cloud and cloud shadow masks, as well as a pre-calculated
+    water mask (which appears to be largely coincident with NDWI &gt;
+    0). However, this water mask is over inclusive, and not suitable for
+    use as is.</p>
+    <p>A large number of features identified as water in the provided
+    Landsat layer appeared to correspond to the northward aspect of
+    terrain features. Therefore, the first and most important step in
+    refining the provided water mask layer was to reduce the false
+    positives as a result of natural terrain shadows. This was
+    accomplished by creating a hillshade (or hill shadow) layer in GEE
+    from a high resolution (10 m) USGS digital elevation model
+    (DEM).</p>
+  </sec>
 </sec>
 <sec id="further-recommendations">
   <title>3 Further Recommendations</title>
@@ -215,6 +351,76 @@ The strengths and weaknesses of each are discussed.</p>
       <pub-id pub-id-type="doi">10.1016/B978-0-12-815055-9.00008-4</pub-id>
       <fpage>203</fpage>
       <lpage>263</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Tran_Menenti_Jia_2022">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Tran</surname><given-names>Khuong H.</given-names></name>
+        <name><surname>Menenti</surname><given-names>Massimo</given-names></name>
+        <name><surname>Jia</surname><given-names>Li</given-names></name>
+      </person-group>
+      <article-title>Surface water mapping and flood monitoring in the mekong delta using sentinel-1 SAR time series and otsu threshold</article-title>
+      <source>Remote Sensing</source>
+      <year iso-8601-date="2022">2022</year>
+      <volume>14</volume>
+      <issue>22</issue>
+      <issn>2072-4292</issn>
+      <pub-id pub-id-type="doi">10.3390/rs14225721</pub-id>
+    </element-citation>
+  </ref>
+  <ref id="ref-GEE_A2.3">
+    <element-citation publication-type="chapter">
+      <person-group person-group-type="author">
+        <name><surname>Markert</surname><given-names>K.</given-names></name>
+        <name><surname>Donchyts</surname><given-names>G.</given-names></name>
+        <name><surname>Haag</surname><given-names>A.</given-names></name>
+      </person-group>
+      <article-title>Chapter A2.3 surface water mapping</article-title>
+      <source>Cloud-based remote sensing with google earth engine: Fundamentals and applications</source>
+      <person-group person-group-type="editor">
+        <name><surname>Cardille</surname><given-names>Jeffrey A.</given-names></name>
+        <name><surname>Clinton</surname><given-names>Nick</given-names></name>
+        <name><surname>Crowley</surname><given-names>Morgan A</given-names></name>
+        <name><surname>Saah</surname><given-names>David</given-names></name>
+      </person-group>
+      <publisher-name>Springer Cham</publisher-name>
+      <year iso-8601-date="2023-05">2023</year><month>05</month>
+      <edition>1</edition>
+      <isbn>978-3-031-26587-7</isbn>
+      <uri>https://docs.google.com/document/d/12cwzbNXtBQnm5switfL1vlv1stnp5D5gXcQeZMP_iJI/edit?tab=t.0#heading=h.2gd4k88k0hkr</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-otsu1975threshold">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Otsu</surname><given-names>Nobuyuki</given-names></name>
+        <etal/>
+      </person-group>
+      <article-title>A threshold selection method from gray-level histograms</article-title>
+      <source>Automatica</source>
+      <year iso-8601-date="1975">1975</year>
+      <volume>11</volume>
+      <issue>285-296</issue>
+      <fpage>23</fpage>
+      <lpage>27</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Franz_Meyer_2019">
+    <element-citation publication-type="chapter">
+      <person-group person-group-type="author">
+        <name><surname>Meyer</surname><given-names>Franz</given-names></name>
+      </person-group>
+      <article-title>Chapter 2 - spaceborne synthetic aperture radar: Principles, data access, and basic processing techniques</article-title>
+      <source>The SAR handbook: Comprehensive methodologies for forest monitoring and biomass estimation</source>
+      <person-group person-group-type="editor">
+        <name><surname>Flores-Anderson</surname><given-names>Africa</given-names></name>
+        <name><surname>Herndon</surname><given-names>K.</given-names></name>
+        <name><surname>Thapa</surname><given-names>Rajesh</given-names></name>
+        <name><surname>Cherrington</surname><given-names>Emil</given-names></name>
+      </person-group>
+      <year iso-8601-date="2019-04">2019</year><month>04</month>
+      <pub-id pub-id-type="doi">10.25966/nr2c-s697</pub-id>
     </element-citation>
   </ref>
 </ref-list>
