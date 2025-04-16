@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.23">
+<meta name="generator" content="quarto-1.7.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Travis Zalesky">
-<meta name="dcterms.date" content="2025-04-10">
+<meta name="dcterms.date" content="2025-04-16">
 <meta name="keywords" content="ephemeral (transient) water, flood, LandSat, MODIS, playa, remote sensing, satellite data, sheet flow, synthetic aperture radar (SAR)">
 
 <title>Remote Sensing Methods for Identifying Ephemeral Water Bodies Across Arizona</title>
@@ -53,10 +53,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-a37c72dd2dbac68997fcdc15a3622e78.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3633567391c49fee829cf872490df673.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5969b9817b206770ea340465a80d02b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -102,10 +102,10 @@ window.Quarto = {
 ">
 <meta name="citation_keywords" content="ephemeral (transient) water,flood,LandSat,MODIS,playa,remote sensing,satellite data,sheet flow,synthetic aperture radar (SAR)">
 <meta name="citation_author" content="Travis Zalesky">
-<meta name="citation_publication_date" content="2025-04-10">
-<meta name="citation_cover_date" content="2025-04-10">
+<meta name="citation_publication_date" content="2025-04-16">
+<meta name="citation_cover_date" content="2025-04-16">
 <meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-04-10">
+<meta name="citation_online_date" content="2025-04-16">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Chapter 17 - the invertebrate community of ephemeral waters;,citation_author=Clifford S. Crawford;,citation_publication_date=1981;,citation_cover_date=1981;,citation_year=1981;,citation_isbn=978-3-642-85796-6;,citation_inbook_title=Biology of desert invertebrates;">
 <meta name="citation_reference" content="citation_title=Chapter 8 - consumers and their effects;,citation_author=Walter G. Whitford;,citation_author=Benjamin D. Duval;,citation_editor=Walter G. Whitford;,citation_editor=Benjamin D. Duval;,citation_publication_date=2020-01;,citation_cover_date=2020-01;,citation_year=2020;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/B9780128150559000084;,citation_doi=10.1016/B978-0-12-815055-9.00008-4;,citation_isbn=978-0-12-815055-9;,citation_inbook_title=undefined;">
@@ -146,7 +146,7 @@ window.Quarto = {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">April 10, 2025</p>
+              <p class="date">April 16, 2025</p>
             </div>
           </div>
           
@@ -205,8 +205,8 @@ window.Quarto = {
 <p>As part of the Arizona Tri-University Recharge (ATUR) project, multiple methods for identifying and quantifying ephemeral water bodies across the state of Arizona (AZ) have been investigated. For reasons that will be discussed, accurate identification of ephemeral, or temporary, water bodies is a challenge, and efforts to-date have shown limited success. Methods, results, and challenges are discussed, and potential paths forward shall be explored.</p>
 <p>Ephemeral water bodies are common features in the arid American southwest. Typically very shallow, these water bodies range in size from a few cm rock pools to sheet flow associated with flash floods, and playas up to several km in diameter <span class="citation" data-cites="Clifford_Crawford Whitford_Duval_2020">(<a href="#ref-Clifford_Crawford" role="doc-biblioref">Crawford, 1981</a>; <a href="#ref-Whitford_Duval_2020" role="doc-biblioref">Whitford &amp; Duval, 2020</a>)</span>. While playas and intermittent streams are well mapped across AZ, there is no consensus on the volume of water which flows through these systems. More to the point, there is no widely accepted estimate of the volume of water which either evaporates or recharges from these internally draining basins.</p>
 <p>It is not clear what fraction of water which flows onto a playa is evaporated vs.&nbsp;recharged. On the one hand, the nature of playas results in the slow accumulation of surface salts and fine sediments (clays and silts), which are generally impervious and detrimental to infiltration and subsequent recharge <span class="citation" data-cites="Whitford_Duval_2020">(<a href="#ref-Whitford_Duval_2020" role="doc-biblioref">Whitford &amp; Duval, 2020</a>)</span>. Additionally, playas may be an oasis for drought resistant flora, increasing local evapotranspiration, even after shallow surface soil layers have dried out <span class="citation" data-cites="Clifford_Crawford">(<a href="#ref-Clifford_Crawford" role="doc-biblioref">Crawford, 1981</a>)</span>. Alternately, these mineral rich surface crusts may be prone to expansion when wetted, and are frequently characterized by deep cracks which provide avenues for water infiltration below the impervious layers <span class="citation" data-cites="Whitford_Duval_2020">(<a href="#ref-Whitford_Duval_2020" role="doc-biblioref">Whitford &amp; Duval, 2020</a>)</span>. While the majority of water flowing onto most playas will be lost to evaporation, there may be specific playas where water loss by infiltration may exceed evaporation <span class="citation" data-cites="Whitford_Duval_2020">(<a href="#ref-Whitford_Duval_2020" role="doc-biblioref">Whitford &amp; Duval, 2020</a>)</span>. At least initially, we will assume that all water flowing onto playas shall be evaporated, subject to later reevaluation and refinement.</p>
-<p>The primary target of this study is to estimate and quantify the volume of water flowing into small to medium sized playas, on the order of ~50 m to ~1 km in diameter, although identification of sheet flow may also be incidental. The general method outlined is to use remote sensing technology to identify standing water broadly across the study area, across a time series. By identifying standing water, and assuming a constant water depth, water volume can be estimated. Additionally, an approximation of “continuously wetted” days can provide an initial estimate of evaporation rates, and through comparison with alternate evapotranspiration estimates, may be useful for estimating infiltration rate (e.g.&nbsp;if water loss rate is 2 cm/day and the evapotranspiration rate is 1.5 cm/day then the implied infiltration rate would be 0.5 cm/day).</p>
-<p>The study area used for method development is primarily Hualapai Playa (a.k.a. Red Lake), located in northwest AZ, approx. 60 km south-southwest of Lake Mead (<a href="#fig-PlayaRef" class="quarto-xref">Figure&nbsp;1</a>). This ephemeral playa is roughly 8 km in diameter, and is one of the largest playas in AZ. Furthermore, local landowners surrounding Hualapai Playa have expressed sincere interest in our project, creating additional public-relations incentives related to this particular playa. Lastly, it’s proximity to Lake Mead and Lake Mohave provide a convenient region for testing these methods against known areas of permanent surface water. Additional playas are investigated as needed.</p>
+<p>The primary target of this study is to estimate and quantify the volume of water flowing into small to medium sized playas, on the order of ~500 m to ~10 km in diameter, although identification of sheet flow may also be incidental. The general method outlined is to use remote sensing technology to identify standing water broadly across the study area, across a time series. By identifying standing water, and assuming a constant water depth, water volume can be estimated. Additionally, an approximation of “continuously wetted” days can provide an initial estimate of evaporation rates, and through comparison with alternate evapotranspiration estimates, may be useful for estimating infiltration rate (e.g.&nbsp;if water loss rate is 2 cm/day and the evapotranspiration rate is 1.5 cm/day then the implied infiltration rate would be 0.5 cm/day).</p>
+<p>The study area used for method development is primarily Hualapai (pronounced “wall-a-pie”) Playa (a.k.a. Red Lake), located in northwest AZ, approx. 60 km southeast of Lake Mead (<a href="#fig-PlayaRef" class="quarto-xref">Figure&nbsp;1</a>). This ephemeral playa is roughly 8 km in diameter, and is one of the largest playas in AZ. Furthermore, local landowners surrounding Hualapai Playa have expressed sincere interest in our project, creating additional public-relations incentives related to this particular playa. Lastly, it’s proximity to Lake Mead and Lake Mohave provide a convenient region for testing these methods against known areas of permanent surface water. Additional playas are investigated as needed.</p>
 <div id="fig-PlayaRef" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-PlayaRef-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -223,7 +223,7 @@ Figure&nbsp;1: Hualapai Playa locator map.
 <h2 data-number="2" class="anchored" data-anchor-id="methods-results"><span class="header-section-number">2</span> Methods &amp; Results</h2>
 <section id="method-1-otsu-thresholding-with-synthetic-aperture-radar" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="method-1-otsu-thresholding-with-synthetic-aperture-radar"><span class="header-section-number">2.1</span> Method 1: Otsu Thresholding with Synthetic Aperture Radar</h3>
-<p>Otsu thresholding is an unsupervised machine vision technique which seeks an optimal threshold for segmenting an image into a binary classification based on a simple histogram classification <span class="citation" data-cites="otsu1975threshold">(<a href="#ref-otsu1975threshold" role="doc-biblioref">Otsu et al., 1975</a>)</span>. The method was initially developed in the late ’70s, and is widely applicable to a range of computer vision classification problems. It assumes a bi-modal histogram distribution and determines an optimal thresholding value through the integration of the histogram, rather than simply relying on local properties “such as valley[s]” <span class="citation" data-cites="otsu1975threshold">(<a href="#ref-otsu1975threshold" role="doc-biblioref">Otsu et al., 1975</a>)</span>. In recent years, Otsu thresholding has been combined with Synthetic Aperture Radar (SAR) satellite imagery to map surface water, such as flood monitoring in the Mekong Delta <span class="citation" data-cites="Tran_Menenti_Jia_2022">(<a href="#ref-Tran_Menenti_Jia_2022" role="doc-biblioref">Tran et al., 2022</a>)</span>. The properties of surface water and SAR make an ideal pairing for use in Otsu thresholding. The smooth surface characteristics of surface water create low SAR back-scatter, appearing as very dark pixels (Figures <a href="#fig-scatter" class="quarto-xref">2</a>-<a href="#fig-LakeMead_S1" class="quarto-xref">3</a>). Compared to the surrounding land surface, water typically has a very high contrast in SAR imagery, which can be leveraged for Otsu thresholding. Additionally, the cloud penetrating characteristics of SAR offer unparalleled all-weather monitoring capabilities.</p>
+<p>Otsu thresholding is an unsupervised machine vision technique which seeks an optimal threshold for segmenting an image into a binary classification based on a simple histogram classification <span class="citation" data-cites="otsu1975threshold">(<a href="#ref-otsu1975threshold" role="doc-biblioref">Otsu et al., 1975</a>)</span>. The method was initially developed in the late ’70s, and is widely applicable to a range of computer vision classification problems. It assumes a bi-modal histogram distribution and determines an optimal thresholding value through the integration of the histogram, rather than simply relying on local histogram properties “such as valley[s]” <span class="citation" data-cites="otsu1975threshold">(<a href="#ref-otsu1975threshold" role="doc-biblioref">Otsu et al., 1975</a>)</span>. In recent years, Otsu thresholding has been combined with Synthetic Aperture Radar (SAR) satellite imagery to map surface water, such as flood monitoring in the Mekong Delta <span class="citation" data-cites="Tran_Menenti_Jia_2022">(<a href="#ref-Tran_Menenti_Jia_2022" role="doc-biblioref">Tran et al., 2022</a>)</span>. The properties of surface water and SAR make an ideal pairing for use in Otsu thresholding. The smooth surface characteristics of surface water create low SAR back-scatter, appearing as very dark pixels (Figures <a href="#fig-scatter" class="quarto-xref">2</a>-<a href="#fig-LakeMead_S1" class="quarto-xref">3</a>). Compared to the surrounding land surface, water typically has a very high contrast in SAR imagery, which can be leveraged for Otsu thresholding. Additionally, the cloud penetrating characteristics of SAR offer unparalleled all-weather monitoring capabilities.</p>
 <div id="fig-scatter" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -250,14 +250,58 @@ Figure&nbsp;3: High resolution Synthetic Aperture Radar (SAR) imagery of Lake Me
 </section>
 <section id="method-2-normalized-difference-water-index-with-landsat-multispectral-imagery" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="method-2-normalized-difference-water-index-with-landsat-multispectral-imagery"><span class="header-section-number">2.2</span> Method 2: Normalized Difference Water Index with Landsat Multispectral Imagery</h3>
-<p>Collectively, the 9 Landsat satellites provide the longest continuous record of space-based earth observations, from 1973 to present. Therefore, it may seem like an obvious candidate for monitoring infrequent phenomena, such as surface water ponding on playas, which may only happen once every several years (depending on the playa). However, Landsat imagery has several disadvantages compared to SAR. Firstly, the 30 m resolution of Landsat imagery is nine times coarser than the 10 m resolution of Sentinel-1 SAR. Second, the revisit time for Landsat satellites is 16-days, more than double that of Sentinel-1. By combining data from multiple Landsat satellites this effective revisit time may be cut to 8-days, but this may not be possible throughout the full time series of interest. Additionally, the visible and infrared spectral bands used by Landsat sensors is not capable of penetrating clouds, and while cloud-masking can be achieved through post-processing, the presence of clouds has the potential to obfuscate the phenomena of interest. Combined, these three disadvantages compound, resulting in much sparser data availability for Landsat imagery in comparison to Sentinel-1.</p>
+<p>Collectively, the 9 Landsat satellites provide the longest continuous record of space-based earth observations, from 1973 to present. Therefore, it may seem like an obvious candidate for monitoring infrequent phenomena, such as surface water ponding on playas, which may only happen once every several years (depending on the playa). However, Landsat imagery has several disadvantages compared to SAR. Firstly, the 30 m resolution of Landsat imagery is nine times coarser than the 10 m resolution of Sentinel-1 SAR. Second, the revisit time for Landsat satellites is 16-days, more than double that of Sentinel-1. By combining data from multiple Landsat satellites this effective revisit time may be cut to 8-days, but this may not be possible throughout the full time series of interest. Additionally, the visible and infrared spectral bands used by Landsat sensors are not capable of penetrating clouds, and while cloud-masking can be achieved through post-processing, the presence of clouds has the potential to obfuscate the phenomena of interest. Combined, these three disadvantages compound, resulting in much sparser data availability for Landsat imagery in comparison to Sentinel-1.</p>
 <p>Furthermore, while indices for surface water monitoring utilizing Landsat spectral bands, such as the Normalized Difference Water Index (NDWI), are widely used, they are imprecise classifiers on their own. NDWI in particular, is suspectable to misclassifying shadows as water. NDWI is defined as the difference between the green and near-infrared (NIR) bands divided by the sum of the green and NIR bands (for Landsat 8/9, bands 3 and 5 respectively; <a href="#eq-NDWI" class="quarto-xref">Equation&nbsp;1</a>).</p>
 <p><span id="eq-NDWI"><span class="math display">\[
 NDWI = \frac{Green - NIR}{Green + NIR}
 \tag{1}\]</span></span></p>
 <p>Despite these disadvantages, it may still be possible to characterize and quantify ephemeral water bodies using this dataset.</p>
-<p>Fortunately, Landsat data is freely available, easily accessible through GEE, and Landsat Collection 2 datasets have added post-processing data which is directly applicable to this method, including cloud and cloud shadow masks, as well as a pre-calculated water mask (which appears to be largely coincident with NDWI &gt; 0). However, this water mask is over inclusive, and not suitable for use as is.</p>
-<p>A large number of features identified as water in the provided Landsat layer appeared to correspond to the northward aspect of terrain features. Therefore, the first and most important step in refining the provided water mask layer was to reduce the false positives as a result of natural terrain shadows. This was accomplished by creating a hillshade (or hill shadow) layer in GEE from a high resolution (10 m) USGS digital elevation model (DEM).</p>
+<p>Fortunately, Landsat data is freely available, easily accessible through GEE, and Landsat Collection 2 datasets include post-processing data which is directly applicable to this method, including cloud and cloud shadow masks, as well as a pre-calculated water mask (which appears to be largely coincident with NDWI &gt; 0). However, this water mask is over inclusive, and not suitable for use as is.</p>
+<p>A large number of features identified as water in the provided Landsat water mask layer appeared to correspond to the northward aspect of terrain features. Therefore, to refine the provided layer by reducing the false positives resulting from natural terrain shadows I created a hillshade (or hill shadow) layer in GEE from a high resolution (10 m) USGS digital elevation model (DEM). For each image in the Landsat collection, sun angle and azimuth were obtained from the image metadata and passed to the hillshadow function to create a custom terrain shadow mask. The provided Landsat water mask was compared against the custom terrain shadow mask, and any purported water which overlapped a terrain shadow was removed.</p>
+<p>Upon evaluation, this method worked fairly well, but still left lots of small crescent shaped remnants of the Landsat water mask resulting from the mis-matched resolution of the imagery and the DEM. Therefore the hillshade was dilated using a local minimum function with a 150 m (5 pixel) square neighborhood. This effectively removed most of the remaining stippling and partial terrain shadows, however it also partially clipped some known water features, for example along the southern shore of Lake Mead. Although the accuracy has not been formally tested, visual analysis appears to confirm that the removal of false positives (terrain shadows) substantially outweighs the loss of true positives (masked water bodies).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This hillshadow dilation method was the first idea, and works reasonably well, with some losses of correctly identified water mask, particularly adjacent to steep terrain.</p>
+<p>An alternate strategy to reduce stippling and partial terrain shadows would be to identify and remove small features using a connected pixel count, as in the <a href="https://travisz09.github.io/ATUR-RF-Flood-Map">Random Forest Flood Map</a>.</p>
+</div>
+</div>
+<p>This method appears to be working reasonably well, as it is consistently identifying know bodies of water such as Lake Mead, even appearing to capture fluctuating water levels in the lake’s headwaters, while limiting the number of false positives from terrain shadows (<a href="#fig-LakeMead_LS" class="quarto-xref">Figure&nbsp;4</a>). However, it still requires on the ground validation with a known ephemeral water body. Additionally, there still remain some number of false positives associated with large building shadows (buildings are not included in DEMs), such as in Las Vegas, and a number of unmasked cloud shadows (<a href="#fig-clouds" class="quarto-xref">Figure&nbsp;5</a>).</p>
+<div id="fig-LakeMead_LS" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-LakeMead_LS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/LakeMead_LS.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Time series analysis of 22 Landsat images of Lake Mead and Hualapai Playa in 2020 with potential water sources mapped in blue. The more frequently a pixel was identified as water, the more saturated the color."><img src="images/LakeMead_LS.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-LakeMead_LS-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Time series analysis of 22 Landsat images of Lake Mead and Hualapai Playa in 2020 with potential water sources mapped in blue. The more frequently a pixel was identified as water, the more saturated the color.
+</figcaption>
+</figure>
+</div>
+<div id="fig-clouds" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-clouds-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="images/Clouds1.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Google Earth Engine screen captures. A cloud moving over Hualapai Playa on 11/26/2020 cast a shadow which is only partially captured by the cloud mask (right; black), and is subsequently misclassified as water by the algorithm (right; blue)."><img src="images/Clouds1.jpg" class="img-fluid figure-img"></a></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="images/Clouds2.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;5: Google Earth Engine screen captures. A cloud moving over Hualapai Playa on 11/26/2020 cast a shadow which is only partially captured by the cloud mask (right; black), and is subsequently misclassified as water by the algorithm (right; blue)."><img src="images/Clouds2.jpg" class="img-fluid figure-img"></a></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clouds-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Google Earth Engine screen captures. A cloud moving over Hualapai Playa on 11/26/2020 cast a shadow which is only partially captured by the cloud mask (right; black), and is subsequently misclassified as water by the algorithm (right; blue).
+</figcaption>
+</figure>
+</div>
+<p>Despite its limitations compared to SAR data, this Landsat method has shown enormous potential. Further development of this method is warranted, and methodological improvements are likely. However, to fully validate this method <strong>we desperately need to find Landsat images of a known ephemeral water body when flooded</strong>. This need for a known test case to validate the method is made more challenging by the long revisit time of the Landsat satellites, as well as the need for clear (cloud free) conditions. <strong>Any available historical records of known flood events on Hualapai Playa, or other large playas in the state would be enormously helpful!</strong></p>
 </section>
 </section>
 <section id="further-recommendations" class="level2" data-number="3">

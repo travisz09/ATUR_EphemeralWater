@@ -143,6 +143,22 @@
 \usepackage{soul}
 \linenumbers
 \makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -264,7 +280,7 @@ reevaluation and refinement.
 
 The primary target of this study is to estimate and quantify the volume
 of water flowing into small to medium sized playas, on the order of
-\textasciitilde50 m to \textasciitilde1 km in diameter, although
+\textasciitilde500 m to \textasciitilde10 km in diameter, although
 identification of sheet flow may also be incidental. The general method
 outlined is to use remote sensing technology to identify standing water
 broadly across the study area, across a time series. By identifying
@@ -276,16 +292,17 @@ for estimating infiltration rate (e.g.~if water loss rate is 2 cm/day
 and the evapotranspiration rate is 1.5 cm/day then the implied
 infiltration rate would be 0.5 cm/day).
 
-The study area used for method development is primarily Hualapai Playa
-(a.k.a. Red Lake), located in northwest AZ, approx. 60 km
-south-southwest of Lake Mead (Figure~\ref{fig-PlayaRef}). This ephemeral
-playa is roughly 8 km in diameter, and is one of the largest playas in
-AZ. Furthermore, local landowners surrounding Hualapai Playa have
-expressed sincere interest in our project, creating additional
-public-relations incentives related to this particular playa. Lastly,
-it's proximity to Lake Mead and Lake Mohave provide a convenient region
-for testing these methods against known areas of permanent surface
-water. Additional playas are investigated as needed.
+The study area used for method development is primarily Hualapai
+(pronounced ``wall-a-pie'') Playa (a.k.a. Red Lake), located in
+northwest AZ, approx. 60 km southeast of Lake Mead
+(Figure~\ref{fig-PlayaRef}). This ephemeral playa is roughly 8 km in
+diameter, and is one of the largest playas in AZ. Furthermore, local
+landowners surrounding Hualapai Playa have expressed sincere interest in
+our project, creating additional public-relations incentives related to
+this particular playa. Lastly, it's proximity to Lake Mead and Lake
+Mohave provide a convenient region for testing these methods against
+known areas of permanent surface water. Additional playas are
+investigated as needed.
 
 \begin{figure}
 
@@ -321,18 +338,18 @@ classification based on a simple histogram classification (Otsu et al.,
 widely applicable to a range of computer vision classification problems.
 It assumes a bi-modal histogram distribution and determines an optimal
 thresholding value through the integration of the histogram, rather than
-simply relying on local properties ``such as valley{[}s{]}'' (Otsu et
-al., 1975). In recent years, Otsu thresholding has been combined with
-Synthetic Aperture Radar (SAR) satellite imagery to map surface water,
-such as flood monitoring in the Mekong Delta (Tran et al., 2022). The
-properties of surface water and SAR make an ideal pairing for use in
-Otsu thresholding. The smooth surface characteristics of surface water
-create low SAR back-scatter, appearing as very dark pixels (Figures
-\ref{fig-scatter}-\ref{fig-LakeMead_S1}). Compared to the surrounding
-land surface, water typically has a very high contrast in SAR imagery,
-which can be leveraged for Otsu thresholding. Additionally, the cloud
-penetrating characteristics of SAR offer unparalleled all-weather
-monitoring capabilities.
+simply relying on local histogram properties ``such as valley{[}s{]}''
+(Otsu et al., 1975). In recent years, Otsu thresholding has been
+combined with Synthetic Aperture Radar (SAR) satellite imagery to map
+surface water, such as flood monitoring in the Mekong Delta (Tran et
+al., 2022). The properties of surface water and SAR make an ideal
+pairing for use in Otsu thresholding. The smooth surface characteristics
+of surface water create low SAR back-scatter, appearing as very dark
+pixels (Figures \ref{fig-scatter}-\ref{fig-LakeMead_S1}). Compared to
+the surrounding land surface, water typically has a very high contrast
+in SAR imagery, which can be leveraged for Otsu thresholding.
+Additionally, the cloud penetrating characteristics of SAR offer
+unparalleled all-weather monitoring capabilities.
 
 \begin{figure}
 
@@ -418,7 +435,7 @@ satellites is 16-days, more than double that of Sentinel-1. By combining
 data from multiple Landsat satellites this effective revisit time may be
 cut to 8-days, but this may not be possible throughout the full time
 series of interest. Additionally, the visible and infrared spectral
-bands used by Landsat sensors is not capable of penetrating clouds, and
+bands used by Landsat sensors are not capable of penetrating clouds, and
 while cloud-masking can be achieved through post-processing, the
 presence of clouds has the potential to obfuscate the phenomena of
 interest. Combined, these three disadvantages compound, resulting in
@@ -441,19 +458,100 @@ Despite these disadvantages, it may still be possible to characterize
 and quantify ephemeral water bodies using this dataset.
 
 Fortunately, Landsat data is freely available, easily accessible through
-GEE, and Landsat Collection 2 datasets have added post-processing data
+GEE, and Landsat Collection 2 datasets include post-processing data
 which is directly applicable to this method, including cloud and cloud
 shadow masks, as well as a pre-calculated water mask (which appears to
 be largely coincident with NDWI \textgreater{} 0). However, this water
 mask is over inclusive, and not suitable for use as is.
 
 A large number of features identified as water in the provided Landsat
-layer appeared to correspond to the northward aspect of terrain
-features. Therefore, the first and most important step in refining the
-provided water mask layer was to reduce the false positives as a result
-of natural terrain shadows. This was accomplished by creating a
+water mask layer appeared to correspond to the northward aspect of
+terrain features. Therefore, to refine the provided layer by reducing
+the false positives resulting from natural terrain shadows I created a
 hillshade (or hill shadow) layer in GEE from a high resolution (10 m)
-USGS digital elevation model (DEM).
+USGS digital elevation model (DEM). For each image in the Landsat
+collection, sun angle and azimuth were obtained from the image metadata
+and passed to the hillshadow function to create a custom terrain shadow
+mask. The provided Landsat water mask was compared against the custom
+terrain shadow mask, and any purported water which overlapped a terrain
+shadow was removed.
+
+Upon evaluation, this method worked fairly well, but still left lots of
+small crescent shaped remnants of the Landsat water mask resulting from
+the mis-matched resolution of the imagery and the DEM. Therefore the
+hillshade was dilated using a local minimum function with a 150 m (5
+pixel) square neighborhood. This effectively removed most of the
+remaining stippling and partial terrain shadows, however it also
+partially clipped some known water features, for example along the
+southern shore of Lake Mead. Although the accuracy has not been formally
+tested, visual analysis appears to confirm that the removal of false
+positives (terrain shadows) substantially outweighs the loss of true
+positives (masked water bodies).
+
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, bottomrule=.15mm, toprule=.15mm, titlerule=0mm, colback=white, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, breakable, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, rightrule=.15mm, leftrule=.75mm, left=2mm, opacityback=0]
+
+This hillshadow dilation method was the first idea, and works reasonably
+well, with some losses of correctly identified water mask, particularly
+adjacent to steep terrain.
+
+An alternate strategy to reduce stippling and partial terrain shadows
+would be to identify and remove small features using a connected pixel
+count, as in the
+\href{https://travisz09.github.io/ATUR-RF-Flood-Map}{Random Forest Flood
+Map}.
+
+\end{tcolorbox}
+
+This method appears to be working reasonably well, as it is consistently
+identifying know bodies of water such as Lake Mead, even appearing to
+capture fluctuating water levels in the lake's headwaters, while
+limiting the number of false positives from terrain shadows
+(Figure~\ref{fig-LakeMead_LS}). However, it still requires on the ground
+validation with a known ephemeral water body. Additionally, there still
+remain some number of false positives associated with large building
+shadows (buildings are not included in DEMs), such as in Las Vegas, and
+a number of unmasked cloud shadows (Figure~\ref{fig-clouds}).
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{images/LakeMead_LS.png}}
+
+}
+
+\caption{\label{fig-LakeMead_LS}Time series analysis of 22 Landsat
+images of Lake Mead and Hualapai Playa in 2020 with potential water
+sources mapped in blue. The more frequently a pixel was identified as
+water, the more saturated the color.}
+
+\end{figure}%
+
+\begin{figure}
+
+\begin{minipage}{0.50\linewidth}
+\pandocbounded{\includegraphics[keepaspectratio]{images/Clouds1.jpg}}\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+\pandocbounded{\includegraphics[keepaspectratio]{images/Clouds2.jpg}}\end{minipage}%
+
+\caption{\label{fig-clouds}Google Earth Engine screen captures. A cloud
+moving over Hualapai Playa on 11/26/2020 cast a shadow which is only
+partially captured by the cloud mask (right; black), and is subsequently
+misclassified as water by the algorithm (right; blue).}
+
+\end{figure}%
+
+Despite its limitations compared to SAR data, this Landsat method has
+shown enormous potential. Further development of this method is
+warranted, and methodological improvements are likely. However, to fully
+validate this method \textbf{we desperately need to find Landsat images
+of a known ephemeral water body when flooded}. This need for a known
+test case to validate the method is made more challenging by the long
+revisit time of the Landsat satellites, as well as the need for clear
+(cloud free) conditions. \textbf{Any available historical records of
+known flood events on Hualapai Playa, or other large playas in the state
+would be enormously helpful!}
 
 \section{Further Recommendations}\label{further-recommendations}
 
